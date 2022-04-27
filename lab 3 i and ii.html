@@ -1,0 +1,103 @@
+//lab3i
+<html>
+    <head>
+    </head>
+    <body>
+        <script>
+       const people =[{ firstName: 'Sam', lastName: 'Hughes', DOB: '07/07/1978', department: 'Development', salary: '45000' },
+
+                { firstName: 'Terri', lastName: 'Bishop', DOB: '02/04/1989', department: 'Development', salary: '35000' },
+                { firstName: 'Jar', lastName: 'Burke', DOB: '11/01/1985', department: 'Marketing', salary: '38000' },
+                { firstName: 'Julio', lastName: 'Miller', DOB: '12/07/1991', department: 'Sales', salary: '40000' },
+                { firstName: 'Chester', lastName: 'Flores', DOB: '03/15/1988', department: 'Development', salary: '41000' },
+                { firstName: 'Madison', lastName: 'Marshall', DOB: '09/22/1980', department: 'Sales', salary: '32000' },
+                { firstName: 'Ava', lastName: 'Pena', DOB: '11/02/1986', department: 'Development', salary: '38000' },
+                { firstName: 'Gabriella', lastName: 'Steward', DOB: '08/26/1994', department: 'Marketing', salary: '46000' },
+                { firstName: 'Charles', lastName: 'Campbell', DOB: '09/04/1977', department: 'Sales', salary: '42000' },
+                { firstName: 'Tiffany', lastName: 'Lambert', DOB: '05/11/1990', department: 'Development', salary: '34000' },
+                { firstName: 'Antonio', lastName: 'Gonzalez', DOB: '03/24/1985', department: 'Office Management', salary: '49000' },
+                { firstName: 'Aaron', lastName: 'Garrett', DOB: '09/04/1985', department: 'Development', salary: '39000' },
+            ];
+            //average income of all the people
+            function avg()
+            {
+                var sum=0;
+                for(var i=0;i<people.length;i++)
+                {
+                    sum=sum+parseInt(people[i].salary);
+                }
+               return sum/people.length;
+           }
+            document.writeln("Average Salary:"+avg());
+
+            //people that are currently older than 30
+                var age=[];
+                for(var i=0;i<people.length;i++)
+                {
+                    if((new Date().getFullYear()-new Date(people[i].DOB).getFullYear()) > 30)
+                    { 
+                        age.push(people[i]);
+                    }
+                }
+            console.table("Older than 30:"+age);//to print the values in arrays as values
+
+
+  //people's full name
+           var fullName = [];
+       for(i=0; i < people.length; i++) 
+            {
+                fullName.push(`${people[i].firstName} ${people[i].lastName}`);
+            }
+
+      console.table(fullName);//table is used to print values in arrays
+       //People from youngest to oldest
+
+    const oldest = people.sort((a, b) => new Date(a.DOB) - new Date(b.DOB) ? 1 : -1)
+    console.table(oldest);
+     //People count in each department
+    const departments= {};
+    people.forEach(person => 
+        !departments[person.department] ?  departments[person.department] = 1 
+        : departments[person.department] += 1);
+    console.table(departments);
+            </script> 
+    </body>
+</html>
+
+
+//lab3ii
+<html>
+    <head>
+    </head>
+    <body>
+        <h5>Heading</h5>
+
+       <p>
+           Hey, you're not permitted in there. It's restricted. You'll be deactivated for sure.. Don't call me a mindless philosopher, you overweight glob of grease! Now come out before somebody sees you. Secret mission? What plans? What are you talking about? I'm not getting in there! I'm going to regret this. There goes another one. Hold your fire. There are no life forms. It must have been short-circuited. That's funny, the damage doesn't look as bad from out here. Are you sure this things safe? Close up formation. You'd better let her loose. Almost there! I can't hold them! It's away! It's a hit! Negative. Negative! It didn't go in. It just impacted on the surface. Red Leader, we're right above you. Turn to point... oh-five, we'll cover for you. Stay there... I just lost my starboard engine. Get set to make your attack run. The Death Star plans are not in the main computer. Where are those transmissions you intercepted? What have you done with those plans? We intercepted no transmissions. Aaah....This is a consular ship. Were on a diplomatic mission. If this is a consular ship...were is the Ambassador? Commander, tear this ship apart until you've found those plans and bring me the Ambassador. I want her alive! There she is! Set for stun! She'll be all right. Inform Lord Vader we have a prisoner. What a piece of junk. She'll make point five beyond the speed of light. She may not look like much, but she's got it where it counts, kid. I've added some special modifications myself. We're a little rushed, so if you'll hurry aboard we'll get out of here. Hello, sir. Which way? All right, men. Load your weapons! Stop that ship! Blast 'em! Chewie, get us out of here! Oh, my. I'd forgotten how much I hate space travel. Run, Luke! Run!
+      </p>
+    </body>
+    <script>
+
+        //Highlight all of the words over 8 characters long in the paragraph text
+
+	const paragraph = document.querySelector('p');
+	paragraph.innerHTML = paragraph.innerText.split(' ').map(word => word.length > 8 ? `<span style = "background-color:yellow">${word}</span>` :word).join(' ');
+
+       //Add a link back to the source of the text after the paragraph tag
+
+	const link = document.createElement('a');
+	link.href = 'https://forcemipsum.com/';
+	document.body.appendChild(link);
+       //Split each new sentence and terminate with a period (.)
+        paragraph.innerHTML = paragraph.innerHTML.split('.').join('</p><p>')+'</p>';
+
+       //Count the number of words in the paragraph tag and display the count after the heading
+        const wdCount=paragraph.innerText.split(' ').length;
+	const wordCountEle=document.createElement('div');
+	wordCountElem.innerText=`${wdCount} words`;
+	document.body.insertBefore(wdCountEle,paragraph);
+
+       //Replace all question marks (?) with thinking faces and exclamation marks (!) with astonished faces
+        Array.from(document.querySelectorAll('p')).forEach(p =>{p.innerHTML = p.innerHTML.replace(/\?/g,'??').replace(/\!/g,'??');})
+    </script>
+</html>
