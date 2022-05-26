@@ -1,0 +1,351 @@
+1:
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt; Form Handling in servlet &lt;/title&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;/head&gt;
+&lt;body style=&quot;background-color: violet&quot;&gt;
+&lt;form name=&quot;Info form&quot; method=&quot;get&quot; action=&quot; Gross_salary&quot;&gt;
+Enter name: &lt;input type=&quot;text&quot; name=&quot;Name&quot;&gt; &lt;/br&gt;
+Enter empid: &lt;input type=&quot;text&quot; name=&quot;empid&quot;&gt; &lt;/br&gt;
+Enter basicpay: &lt;input type=&quot;text&quot; name=&quot;pay&quot;&gt; &lt;/br&gt;
+Enter HRA: &lt;input type=&quot;text&quot; name=&quot;hra&quot;&gt; &lt;/br&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+Gross_Salary.java
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javafx.scene.paint.Color.color;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class Gross_salary extends HttpServlet {
+
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+response.setContentType(&quot;text/html;charset=UTF-8&quot;);
+try (PrintWriter out = response.getWriter()) {
+/* TODO output your page here. You may use following sample code. */
+String name=request.getParameter(&quot;Name&quot;);
+String empid=request.getParameter(&quot;empid&quot;);
+int sal=Integer.parseInt(request.getParameter(&quot;pay&quot;));
+int hra1=Integer.parseInt(request.getParameter(&quot;hra&quot;));
+int da=sal/2;
+hra1+=da;
+int gross=hra1+sal;
+
+out.println(&quot;&lt;!DOCTYPE html&gt;&quot;);
+out.println(&quot;&lt;html&gt;&quot;);
+out.println(&quot;&lt;head&gt;&quot;);
+out.println(&quot;&lt;title&gt;Employee Information &lt;/title&gt;&quot;);
+out.println(&quot;&lt;/head&gt;&quot;);
+out.println(&quot;&lt;body BGCOLOR= cyan &gt;&quot;);
+out.println(&quot;&lt;h1&gt;&quot; +&quot; Employee Name:&quot; + name+ &quot;&lt;/h1&gt;&quot;);
+out.println(&quot;&lt;h1&gt;&quot; +&quot; Employee id:&quot; + empid+ &quot;&lt;/h1&gt;&quot;);
+out.println(&quot;&lt;h1&gt;&quot; +&quot; Employee Basic Pay:&quot; + sal+ &quot;&lt;/h1&gt;&quot;);
+out.println(&quot;&lt;h1&gt;&quot; +&quot; Employee House allowance:&quot; + hra1+ &quot;&lt;/h1&gt;&quot;);
+out.println(&quot;&lt;h1&gt;&quot; +&quot; Employee Gross Pay:&quot; + gross+ &quot;&lt;/h1&gt;&quot;);
+out.println(&quot;&lt;/body&gt;&quot;);
+out.println(&quot;&lt;/html&gt;&quot;);
+}
+}
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+processRequest(request, response);
+}
+/**
+* Handles the HTTP &lt;code&gt;POST&lt;/code&gt; method.
+*
+* @param request servlet request
+* @param response servlet response
+* @throws ServletException if a servlet-specific error occurs
+* @throws IOException if an I/O error occurs
+*/
+
+
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+processRequest(request, response);
+}
+@Override
+public String getServletInfo() {
+return &quot;Short description&quot;;
+}// &lt;/editor-fold&gt;
+}
+
+
+
+
+2:
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Weather Reporting &lt;/title&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1 style=&quot;color:red &quot;&gt; Weather Report &lt;/h1&gt;
+&lt;p style= &quot;background-image: url(&#39;weather1.jpg&#39;); width: 1000px; height:
+800px;background-repeat: no-repeat &quot;&gt;
+&lt;/p&gt;
+&lt;form action=&quot;Weather_servlet &quot;&gt;
+&lt;h1&gt; Enter city:&lt;input type=&quot;text&quot; name=&quot;city&quot;&gt;&lt;/h1&gt;
+&lt;input type=&quot;submit&quot; value=&quot;submit&quot;&gt;
+&lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+Weather_servlet.java
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class report extends HttpServlet {
+
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+response.setContentType(&quot;text/html;charset=UTF-8&quot;);
+try (PrintWriter out = response.getWriter()) {
+/* TODO output your page here. You may use following sample code. */
+String res=request.getParameter(&quot;city&quot;);
+int temp=0;
+String s=&quot;&quot;;
+if(res .equals(&quot;madurai&quot;))
+{
+temp=100;
+s=&quot;sunny&quot;;
+}
+else if(res .equals(&quot;chennai&quot;))
+{
+temp=101;
+s=&quot;very hot&quot;;
+}
+else if(res .equals(&quot;coimbatore&quot;))
+{
+temp=90;
+s=&quot;cloudy&quot;;
+}
+out.println(&quot;&lt;!DOCTYPE html&gt;&quot;);
+out.println(&quot;&lt;html&gt;&quot;);
+out.println(&quot;&lt;head&gt;&quot;);
+out.println(&quot;&lt;title&gt;Servlet report&lt;/title&gt;&quot;);
+out.println(&quot;&lt;/head&gt;&quot;);
+out.println(&quot;&lt;body style= \&quot;background-image: url(&#39;rainbow.jpg&#39;);background-
+size:cover;background-repeat: no-repeat \&quot;&gt;&quot;);
+//out.println(&quot;&lt;h1 &gt; &quot;+&quot;Temperature:&quot;+ temp +&quot;&lt;br&gt;&quot;+ s + &quot;&lt;/h1&gt;+&lt;img src=\&quot;sun.jfif\&quot;
+width=\&quot;200\&quot; height=\&quot;200\&quot;&gt;&quot;);
+//response.getWriter().write(s);
+//{
+// out.println(&quot;&lt;img src=&quot;+ url(&#39;sun.jfif&#39;) +&quot; height=50% width=50% &gt;&quot;);
+//}
+if(temp&gt;=100)
+{
+
+
+out.println(&quot;&lt;h1 &gt; &quot;+&quot;Temperature:&quot;+ temp +&quot;&lt;br&gt;&quot;+ s + &quot;&lt;/h1&gt;+&lt;img src=\&quot;sun.jfif\&quot;
+width=\&quot;200\&quot; height=\&quot;200\&quot;&gt;&quot;);
+}
+else if(temp&lt;100)
+{
+out.println(&quot;&lt;h1 &gt; &quot;+&quot;Temperature:&quot;+ temp +&quot;&lt;br&gt;&quot;+ s + &quot;&lt;/h1&gt;+&lt;img src=\&quot;cloudy.jfif\&quot;
+width=\&quot;200\&quot; height=\&quot;200\&quot;&gt;&quot;);
+}
+out.println(&quot;&lt;/body&gt;&quot;);
+out.println(&quot;&lt;/html&gt;&quot;);
+}
+}
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+}
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+processRequest(request, response);
+}
+@Override
+public String getServletInfo() {
+return &quot;Short description&quot;;
+}// &lt;/editor-fold&gt;
+}
+
+
+3:
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Book Inventory&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;center&gt;&lt;h2&gt;Book Inventory&lt;/h2&gt;&lt;/center&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;form method=&quot;post&quot; action=&quot;http://localhost:8080/IP_LAB_EXERCISES/Ex_3_book_servlet&quot;&gt;
+&lt;label for=&quot;bookname&quot;&gt;Enter Book Name&lt;/label&gt;
+&lt;input type=&quot;text&quot; autofocus name=&quot;bookname&quot;&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;label for=&quot;author&quot;&gt;Enter Author Name&lt;/label&gt;
+&lt;input type=&quot;text&quot; name=&quot;author&quot;&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Get Book&quot;&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+Book_Servlet.java
+/*
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
+package Lab_Ex_5;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+@WebServlet(name = &quot;Ex_3_book_servlet&quot;, urlPatterns = {&quot;/Ex_3_book_servlet&quot;})
+public class Ex_3_book_servlet extends HttpServlet {
+HashMap&lt;String,Ex_3_Book&gt; map=new HashMap&lt;&gt;();
+Ex_3_Book book;
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+}
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+response.setContentType(&quot;text/html;charset=UTF-8&quot;);
+int copies=Integer.parseInt(request.getParameter(&quot;copies&quot;));
+try(PrintWriter out = response.getWriter()){
+if(copies&lt;=book.stock)
+{
+book.stock-=copies;
+out.println(&quot;&lt;center&gt;&lt;h2&gt;&quot;+&quot;Order Details&quot;+ &quot;&lt;/h2&gt;&quot;);
+out.println(&quot;&lt;table border=2 width=&#39;300px&#39; height=&#39;300px&#39; style=&#39;cell-padding:2%;
+text-align:center;background-color:#98FB98;font-size:large;&#39;&gt;&lt;tr&gt;&lt;td&gt;
+colspan=&#39;2&#39;&gt;Receipt&lt;/td&gt;&quot;);
+out.println(&quot;&lt;tr&gt;&lt;td&gt;Title&lt;/td&gt;&lt;td&gt;&quot;+book.title+&quot;&lt;/td&gt;&quot;);
+out.println(&quot;&lt;tr&gt;&lt;td&gt;Author&lt;/td&gt;&lt;td&gt;&quot;+book.author+&quot;&lt;/td&gt;&quot;);
+out.println(&quot;&lt;tr&gt;&lt;td&gt;Price per book&lt;/td&gt;&lt;td&gt;&quot;+book.price+&quot;&lt;/td&gt;&quot;);
+out.println(&quot;&lt;tr&gt;&lt;td&gt;&lt;b&gt;Total
+cost&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;&quot;+(copies*book.price)+&quot;&lt;/b&gt;&lt;/td&gt;&lt;/table&gt;&lt;/center&gt;&quot;);
+}
+
+
+else
+{
+out.println(&quot;&lt;center&gt;&lt;div style=&#39;border:5px solid
+red;width:450px;height:250px;background-color:#ffcccb;text-align:center;&#39;&gt;&quot;);
+out.println(&quot;&lt;p style=&#39;color:red;font-size:xx-large;&#39;&gt;Sorry, the requested number of copies
+is not available:( !! &lt;/p&gt;&quot;);
+out.println(&quot;&lt;button style=&#39;border-radius:2%;background-color:white;&#39;
+onclick=location.href=&#39;http://localhost:8080/IP_LAB_EXERCISES/Lab_5_Book.html&gt;Back to home
+page&lt;/button&gt;&quot;);
+out.println(&quot;&lt;/div&gt;&lt;/center&gt;&quot;);
+}
+}
+}
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+response.setContentType(&quot;text/html;charset=UTF-8&quot;);
+book=new Ex_3_Book(&quot;Dr.A.P.J.Abdul Kalaam&quot;,&quot;My Journey&quot;,1000.00,&quot;GG Publisher&quot;,40);
+map.put(book.title, book);
+book=new Ex_3_Book(&quot;Dr.Bibek Debroy&quot;,&quot;Making of New India&quot;,750.00,&quot;TR Publisher&quot;,23);
+map.put(book.title, book);
+book=new Ex_3_Book(&quot;Dr.Krishna Saksena&quot;,&quot;Whispers of Time&quot;,870.50,&quot;MJ Publisher&quot;,26);
+map.put(book.title, book);
+//get details
+String bName=request.getParameter(&quot;bookname&quot;);
+String author=request.getParameter(&quot;author&quot;);
+try (PrintWriter out = response.getWriter()) {
+out.println(&quot;&lt;!DOCTYPE html&gt;&quot;);
+out.println(&quot;&lt;html&gt;&quot;);
+out.println(&quot;&lt;head&gt;&quot;);
+out.println(&quot;&lt;title&gt;Book Servlet&lt;/title&gt;&quot;);
+out.println(&quot;&lt;/head&gt;&quot;);
+out.println(&quot;&lt;body&gt;&quot;);
+if(map.containsKey(bName))
+{
+book=map.get(bName);
+if(book.author.equals(author))
+{
+out.println(&quot;&lt;center&gt;&lt;h3&gt;&quot;+&quot;Book Details&quot;+ &quot;&lt;/h3&gt;&quot;);
+out.println(&quot;&lt;table border=2 width=&#39;400px&#39; height=&#39;3400px&#39; style=&#39;cell-padding:2%;text-
+align:center;background-color:shkyblue;font-
+size:16px;&#39;&gt;&lt;tr&gt;&lt;td&gt;Title&lt;/td&gt;&lt;td&gt;&quot;+book.title+&quot;&lt;/td&gt;&quot;);
+
+
+out.println(&quot;&lt;tr&gt;&lt;td&gt;Author&lt;/td&gt;&lt;td&gt;&quot;+book.author+&quot;&lt;/td&gt;&quot;);
+out.println(&quot;&lt;tr&gt;&lt;td&gt;Price&lt;/td&gt;&lt;td&gt;&quot;+book.price+&quot;&lt;/td&gt;&quot;);
+out.println(&quot;&lt;tr&gt;&lt;td&gt;&lt;b&gt;Stock available&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;&quot;+book.stock+&quot;&lt;/b&gt;&lt;/td&gt;&lt;/table&gt;&lt;br&gt;&quot;);
+out.println(&quot;&lt;form method=&#39;get&#39;
+action=&#39;http://localhost:8080/IP_LAB_EXERCISES/Ex_3_book_servlet&#39;&gt;&quot;);
+out.println(&quot;Enter number of copies of book:&lt;input type=&#39;number&#39; autofocus
+name=&#39;copies&#39;&gt;&lt;br&gt;&lt;br&gt;&quot;);
+out.println(&quot;&lt;input type=&#39;submit&#39; value=&#39;Get copies&#39;&gt;&lt;/center&gt;&quot;);
+}
+else
+{
+out.println(&quot;&lt;center&gt;&lt;div style=&#39;border:5px solid red;width:450px;height:250px;background-
+color:#ffcccb;text-align:center;&#39;&gt;&quot;);
+out.println(&quot;&lt;p style=&#39;color:red;font-size:xx-large;&#39;&gt;Sorry, the requested book is not available:( !!
+&lt;/p&gt;&quot;);
+out.println(&quot;&lt;button style=&#39;border-radius:2%;background-color:white;&#39;
+onclick=location.href=&#39;http://localhost:8080/IP_LAB_EXERCISES/Lab_5_Book.html&#39;&gt;Back to
+home page&lt;/button&gt;&quot;);
+out.println(&quot;&lt;/div&gt;&lt;/center&gt;&quot;);
+}
+}
+else
+{
+out.println(&quot;&lt;center&gt;&lt;div style=&#39;border:5px solid red;width:450px;height:250px;background-
+color:#ffcccb;text-align:center;&#39;&gt;&quot;);
+out.println(&quot;&lt;p style=&#39;color:red;font-size:xx-large;&#39;&gt;Sorry, the requested book is not available:( !!
+&lt;/p&gt;&quot;);
+out.println(&quot;&lt;button style=&#39;border-radius:2%;background-color:white;&#39;
+onclick=location.href=&#39;http://localhost:8080/IP_LAB_EXERCISES/Lab_5_Book.html&#39;&gt;Back to
+home page&lt;/button&gt;&quot;);
+out.println(&quot;&lt;/div&gt;&lt;/center&gt;&quot;);
+}
+out.println(&quot;&lt;/body&gt;&quot;);
+out.println(&quot;&lt;/html&gt;&quot;);
+}
+}
+@Override
+public String getServletInfo() {
+return &quot;Short description&quot;;
+}// &lt;/editor-fold&gt;
+}
+
+
+Book.java
+package Lab_Ex_5;
+public class Ex_3_Book {
+String author;
+String title;
+double price;
+String publisher;
+int stock;
+public Ex_3_Book(String author, String title, double price, String publisher, int stock) {
+this.author = author;
+this.title = title;
+this.price = price;
+this.publisher = publisher;
+this.stock = stock;
+}
+}
