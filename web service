@@ -1,0 +1,145 @@
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;
+&quot;http://www.w3.org/TR/html4/strict.dtd&quot;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;title&gt;AJAX 5 Star Rating&lt;/title&gt;
+&lt;script src=&quot;http://code.jquery.com/jquery-latest.js&quot;&gt;
+&lt;/script&gt;
+//This is the first thing we add $(document).ready(function() {
+$(&#39;.rate_widget&#39;).each(function(i) {
+var widget = this; var out_data={
+widget id: $(widget).attr(&quot;id&quot;), fetch: 1
+$.post(
+&#39;ratings.php&#39;,
+out_data,
+function(INFO) {
+$(widget).data( &#39;fsr&#39;, INFO); set votes(widget);
+&#39;json&#39;
+$C.ratings stars&#39;).hover( Handles the mouseover
+function(){
+$(this).prevAll().andSelf().addClass(&#39;ratings_over&#39;);
+$(this).nextAllO.removeClass(&#39;ratings_vote&quot;);
+// Handles the mouseout function() {
+$(this).prevAll().andSelf).removeClass(&#39;ratings_over&#39;); // can&#39;t use &#39;this&#39; because it wont contain
+the updated data
+set votes($(this).parent());
+):
+//This actually records the vote
+$(&#39;.ratings stars&quot;).bind(&#39;click&#39;, function() {
+var star = this; var widget $(this).parent();
+var clicked_data={ clicked on: $(star).attr(&#39;class&#39;), widget_id: S(star).parent().attr(&quot;id&quot;)
+$.post( Seatings ahn)
+//This actually records the vote
+$(&#39;.ratings_stars&quot;).bind(&#39;click&#39;, function() {
+var star = this;
+var widget $(this).parent(); var clicked_data={
+clicked on: S(star).attr(&quot;class&quot;),
+widget id: $(star).parent().attr(&quot;id&quot;)
+$.post(
+&#39;ratings.php&#39;,
+clicked_data,
+function(INFO) {
+widget.data( &#39;fsr&#39;, INFO);
+set votes(widget):
+&#39;json&#39;
+):
+function set_votes(widget) {
+var avg = $(widget).data(&#39;fsr).whole_avg: var votes = $(widget).data(&#39;fsr).number_votes,
+var exact = $(widget).data(&#39;fsr&#39;).dec_avg:
+window.console &amp;&amp; console.log(and now in set votes, it thinks the fst is &#39;+
+S(widget).data(&#39;fsr&#39;).number_votes);
+S(widget).find(&#39;.star+ avg).prevAll().andSelf).addClass(&#39;ratings_vote);
+$(widget).find(&#39;.star+ avg).nextAll().removeClass(&#39;ratings_vote&#39;);
+$(widget).find(&#39;.total votes).text( votes+votes recorded (+ exact +&#39;rating)&#39;
+}
+//END FIRST THING
+&lt;/script&gt; &lt;style&gt;
+rate_widget {
+border: 1px solid #CCC;
+overflow: visible;
+padding: 10px;
+position: relative;
+width: 180px;
+height: 32px;
+ratings stars {
+background: url(&#39;star_empty.png) no-repeat;
+float: left;
+height: 28px; padding: 2px;
+width: 32px;
+}
+ratings_vote { background: url(&#39;star_full.png&#39;) no-repeat;
+ratings_over {
+background: url(&#39;star_highlight.png) no-repeat;
+total votes
+background: #eaeaea;
+top: 58px:
+left: 0;
+padding: 5px;
+position: absolute;
+font: 10px verdana, sans-serif;
+margin: 0 auto 40px auto; width: 180px;
+}
+text-align: center;
+width: 400px;
+margin: 20px auto;
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Rate the following movies! &lt;/h1&gt; &lt;div class=&#39;movie_choice&quot;&gt;
+Rate: Raiders of the Lost Ark
+&lt;div id=&quot;rl&quot; class=&quot;rate_widget&quot;&gt;
+&lt;div class=&quot;star 1 ratings stars&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;star 2 ratings_stars&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;star_3 ratings_stars&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;star 4 ratings stars&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;star 5 ratings_stars&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;total_votes&quot;&gt;vote data&lt;/div&gt;
+&lt;/div&gt; &lt;/div&gt;
+&lt;div class=&#39;movie_choice&quot;&gt;
+Rate: The Hunt for Red October &lt;div id=&quot;12&quot; class=&quot;rate_widget&quot;&gt;
+&lt;div class=&quot;star_1 ratings_stars&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;star 2 ratings stars&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;star 3 ratings_stars&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;star 4 ratings stars&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;star 5 ratings_stars&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;total_votes&quot;&gt;vote data&lt;/div&gt;
+&lt;/div&gt; &lt;/div&gt;
+&lt;/body&gt;
+Ratings.php
+&lt;?php
+Srating = new ratings($_POST[&#39;widget_id&#39;]); isset($_POST[&#39;fetch&#39;]) ? Srating-&gt;get ratings():
+Srating-&gt;vote();
+class ratings {
+var $data_file = &#39;/ratings.data.txt&#39;;
+private Swidget_id; private $data = array():
+function construct(Swid) {
+$this-&gt;widget_id = Swid;
+Sall-file_get_contents($this-&gt;data_file);
+if($all) {
+$this-&gt;data = unserialize($all):
+public function get_ratings() {
+if($this-&gt;data[$this-&gt;widget_id]) {
+echo ison encode($this-&gt;datal $this-&gt;widget id):
+else (
+$data[&#39;widget_id&#39;] Sthis-&gt;widget id, $data[&#39;number_votes&#39;]=0:
+$data[&#39;total_points&quot;] = 0; $data[&#39;dec_avg&#39;]=0;
+$data[&#39;whole_avg&#39;] = 0; echo json_encode($data);
+public function vote() {
+#Get the value of the vote
+preg_match(&#39;/star ([1-5]{1})&quot;, $_POST[&#39;clicked on&#39;], Smatch); Svote Smatch[1];
+SID=$this.widget_id
+#Update the record if it exists
+if($this-&gt;data[SID]) {
+$this-&gt;data[SID][&#39;number_votes&#39;] += 1;
+$this-&gt;data[SID][&#39;total_points&#39;] += Svote;
+#Create a new one if it doesn&#39;t
+else (
+$this-&gt;data[SID][&#39;number_votes&#39;] = 1;
+$this-&gt;data[SID][&#39;total points&#39;] = $vote;
+$this-&gt;data[SID][&#39;dec_avg&#39;] = round($this-&gt;data[SID][&#39;total
+points&#39;]/$this &gt;data[SID][&#39;number_votes], 1); |
+$this-&gt;data[SID][&#39;whole_avg&#39;] = round( $this-&gt;data[$ID][&#39;dec_avg&#39;]);
+file_put_contents($this-&gt;data file, serialize($this-&gt;data));
+$this-&gt;get ratings():
+#end class
+]
